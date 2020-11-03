@@ -6,7 +6,7 @@ clc;
 clear;
 
 n = [5 100];
-M = 1000;
+M = 100;
 mu = 15;
 confidencePercent = 95;
 
@@ -20,7 +20,7 @@ for i = 1:M
     end
     
     % Calculate confidence interval
-    CI = confInterval(confidencePercent, samples);
+    [~,~,CI(:),~] = ttest(samples,0);
     
     % Check if mean is inside confidence interval and update counter
     if(mu>=CI(1) && mu<=CI(2))
@@ -39,7 +39,7 @@ for i = 1:M
     end
     
     % Calculate confidence interval
-    CI = confInterval(confidencePercent, samples);
+    [~,~,CI(:),~] = ttest(samples,mu);
     
     % Check if mean is inside confidence interval and update counter
     if(mu>=CI(1) && mu<=CI(2))
@@ -51,12 +51,3 @@ percentIsInsideIntervalB = isInsideIntervalCounter/M;
 % Display results
 disp(percentIsInsideIntervalA)
 disp(percentIsInsideIntervalB)
-
-function CI = confInterval(percent, samples)
-    percent = percent/100;
-    low = (1 - percent) / 2 ;
-    high = percent + low;
-    standardError = std(samples)/sqrt(length(samples)); 
-    ts = tinv([low  high],length(samples)-1);
-    CI = mean(samples) + ts*standardError;
-end
