@@ -1,6 +1,6 @@
 % Data Analysis 2020
-% Chapter 3 Excerise 7
-% Bootstrap mean confidence interval
+% Chapter 3 Excerise 8
+% Bootstrap standard diviation confidence interval
 % Nick Kaparinos
 clc;
 clear;
@@ -13,11 +13,11 @@ CIParam = zeros(M,2);
 
 % A
 % Bootstrap CI
-CIBoot = bootci(B,{@mean,X'},'type','percentile')';
+CIBoot = bootci(B,{@std,X'},'type','percentile')';
 
 % Parametric CI
 for i = 1:M
-    [~,~,CIParam(i,:),~] = ttest(X(i,:),0);
+    [~,~,CIParam(i,:),~] = sqrt(vartest(X(i,:),0));
 end
 
 % Histograms
@@ -34,11 +34,11 @@ title('Confidence Interval upper bound');
 % B
 % Bootstrap CI
 Y = X.^2;
-CIBoot = bootci(B,@mean,Y')';
+CIBoot = bootci(B,{@std,Y'},'type','percentile')';
 
 % Parametric CI
 for i = 1:M
-    [~,~,CIParam(i,:),~] = ttest(Y(i,:),0);
+    [~,~,CIParam(i,:),~] = sqrt(vartest(Y(i,:),0));
 end
 
 % Histograms
