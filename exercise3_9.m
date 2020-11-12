@@ -35,5 +35,3 @@ for i = 1:M
     CIBootstrap(i,:) = prctile(difference,limits);
 end
 
-% B
-
