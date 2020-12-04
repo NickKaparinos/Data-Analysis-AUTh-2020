@@ -59,5 +59,12 @@ regression = Xones*breal - 299000;
 plot(X,regression,'LineWidth',2,'LineStyle','-','Color','r')
 
 
-
+% Debug
+close all;
+n = 100;
+sy2 = var(Y);
+sx2 = var(X);
+b1 = b(2);
+se2 = (n-1)/(n-2)*(sy2-(b1^2)*sx2);
+se = sqrt(se2);
 
