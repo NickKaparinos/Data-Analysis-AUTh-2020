@@ -2,6 +2,7 @@
 % Chapter 5 Excerise 6
 % Non linear regression
 % Nick Kaparinos
+close all;
 clc;
 clear;
 
@@ -18,43 +19,52 @@ scatter(X,Y)
 % Functions
 % 1 Power
 power = @(b,x)( b(1)*x.^(b(2)) );
-% 2 exponential
-%exponential = @(b,x)( b(1)*exp(b(2)*x) );
-% 2 logarithmic
+% 2 Logarithmic
 logarithmic = @(b,x)( b(1)+b(2)*log(x));
-% 3 inverse
+% 3 Inverse
 inverse = @(b,x)( b(1) + b(2)./x);
+% 4 Exponential
+%exponential = @(b,x)( b(1)*exp(b(2)*x) );
 
 functions = {power ; logarithmic; inverse};
 functionNames = ["Power" ; "Logarithmic"; "Inverse"];
 mse = zeros(length(functions),1);
 
 for i = 1:length(functions)
-% Calculate non linear regression model
-beta0 = [2 ; 2];
-model = fitnlm(X,Y,functions{i},beta0);
-mse(i) = model.MSE;
-
-beta = table2array(model.Coefficients);
-beta = beta(:,1);
-pred = functions{i}(beta,X);
-
-% Plot data and regression
-figure(i)
-scatter(X,Y)
-hold on;
-plot(X,pred)
-title(strcat(functionNames(i)," regression"));
-
-% Plot diagnostic plot of standardised error
-ei_standard = (Y - pred)/mse(i);
-figure(i*10)
-scatter(Y,ei_standard);
-hold on;
-plot(Y,repmat(2,1,8));
-hold on;
-plot(Y,repmat(-2,1,8));
-title(strcat(functionNames(i)," regression standardised error"));
+    % Calculate non linear regression model
+    beta0 = [1 ; 1];
+    model = fitnlm(X,Y,functions{i},beta0);
+    mse(i) = model.MSE;
+    
+    beta = table2array(model.Coefficients);
+    beta = beta(:,1);
+    pred = functions{i}(beta,X);
+    
+    % Plot data and regression
+    figure(i)
+    scatter(X,Y)
+    hold on;
+    plot(X,pred)
+    title(strcat(functionNames(i)," regression"));
+    
+    % B
+    if( i == 2)
+        x0 = 25;
+        prediction = functions{i}(beta,x0);
+        hold on;
+        plot(x0,prediction,'x','MarkerEdgeColor','k','MarkerSize',5);
+    end
+    
+    % Plot diagnostic plot of standardised error
+    ei_standard = (Y - pred)/mse(i);
+    figure(i*10)
+    scatter(Y,ei_standard);
+    hold on;
+    plot(Y,repmat(2,1,length(Y)));
+    hold on;
+    plot(Y,repmat(0,1,length(Y)));
+    hold on;
+    plot(Y,repmat(-2,1,length(Y)));
+    title(strcat(functionNames(i)," regression standardised error"));
+    
 end
-
-
