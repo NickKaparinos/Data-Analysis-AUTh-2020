@@ -24,15 +24,15 @@ logarithmic = @(b,x)( b(1)+b(2)*log(x));
 % 3 Inverse
 inverse = @(b,x)( b(1) + b(2)./x);
 % 4 Exponential
-%exponential = @(b,x)( b(1)*exp(b(2)*x) );
+exponential = @(b,x)( b(1)*exp(b(2)*x) );
 
-functions = {power ; logarithmic; inverse};
-functionNames = ["Power" ; "Logarithmic"; "Inverse"];
+functions = {power ; logarithmic; inverse; exponential};
+functionNames = ["Power" ; "Logarithmic"; "Inverse"; "exponential"];
 mse = zeros(length(functions),1);
 
 for i = 1:length(functions)
     % Calculate non linear regression model
-    beta0 = [1 ; 1];
+    beta0 = [10 ; -0.1];
     model = fitnlm(X,Y,functions{i},beta0);
     mse(i) = model.MSE;
     
@@ -48,15 +48,14 @@ for i = 1:length(functions)
     title(strcat(functionNames(i)," regression"));
     
     % B
-    if( i == 2)
-        x0 = 25;
-        prediction = functions{i}(beta,x0);
-        hold on;
-        plot(x0,prediction,'x','MarkerEdgeColor','k','MarkerSize',5);
-    end
+    x0 = 25;
+    prediction = functions{i}(beta,x0);
+    hold on;
+    plot(x0,prediction,'x','MarkerEdgeColor','k','MarkerSize',5);
+
     
-    % Plot diagnostic plot of standardised error
-    ei_standard = (Y - pred)/mse(i);
+    % Diagnostic plot of standardised error
+    ei_standard = (Y - pred)/sqrt(mse(i));
     figure(i*10)
     scatter(Y,ei_standard);
     hold on;
