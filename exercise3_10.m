@@ -1,6 +1,6 @@
 % Data Analysis 2020
 % Chapter 3 Excerise 10
-% Bootstrap testing hypothesis
+% Random permutation hypothesis test
 % Nick Kaparinos
 clc;
 clear;
@@ -23,7 +23,7 @@ limits(2) = floor(limits(2));
 CIBootstrap = zeros(M,2);
 result = zeros(M,1);
 for i = 1:M
-    % Bootstram hypothesis testing
+    % Random permutation test
     samples = [X(i,:) Y(i,:)];
     difference = zeros(B,1);
     for j = 1:B
@@ -34,11 +34,13 @@ for i = 1:M
         my = mean(samplesY);
         difference(j) = mx - my;
     end
-    difference = sort(difference);
-    %CIBootstrap(i,:) = prctile(difference,limits);
     stat = mean(X(i,:)) - mean(Y(i,:));
-    if( stat < difference(limits(1)) || stat > difference(limits(2)) )
+    difference = [difference; stat];
+    difference = sort(difference);
+    
+    r = find(difference == stat);
+    if( r < limits(1) || r > limits(2) )
         result(i) = 1;
     end
 end
-disp(M - sum(result))
+disp(sum(result)/M)
