@@ -1,6 +1,6 @@
 % Data Analysis 2020
 % Chapter 6 Excerise 4
-% PCA
+% ICA
 % Nick Kaparinos
 close all;
 clc;
@@ -13,18 +13,18 @@ chirp = chirpSignal.y(1:10000);
 gong = gongSignal.y(1:10000);
 
 prewhitening = true;
-mixingDimension3 = true;
+mixingDimension3 = false;
 
 % A
 % Sources plots
 figure(1)
-plot(1:10000,chirp);
+plot(1:length(chirp),chirp);
 xlabel("t")
 ylabel("chirp(t)")
 title("Chirp signal")
 
 figure(2)
-plot(1:10000,gong);
+plot(1:length(gong),gong);
 xlabel("t")
 ylabel("gong(t)")
 title("Gong signal")
@@ -74,7 +74,7 @@ ylabel("s2(t)")
 title("Scatterplot of observed signals")
 
 
-
+% https://www.mathworks.com/help/stats/extract-mixed-signals.html
 function Z = prewhiten(X)
 % X = N-by-P matrix for N observations and P predictors
 % Z = N-by-P prewhitened matrix
@@ -104,6 +104,10 @@ function Z = prewhiten(X)
     Z = bsxfun(@times,Z*U,1./sqrt(Sig));
 end
 
+% function Z = prewhiten(X)
+% [U,S,V] = svd(X,'econ');
+% Z = inv(S)*U*X;
+% end
 
 
 
