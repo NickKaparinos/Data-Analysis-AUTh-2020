@@ -21,16 +21,33 @@ end
 stdCI = sqrt(stdCI);
 
 % Test wikipedia hypothesis
-correctMatrix = [true ; true];
-for i = 1:length(eruption)
-    if( eruption(i,2) < 2.5 )
-        if( eruption(i,1) < 55 || eruption(i,1) > 75 )
-            correctMatrix(1) = false;
-        end
-    else
-        if( eruption(i,1) < 81 || eruption(i,1) > 101 )
-            correctMatrix(2) = false;
-        end
-    end
-end
+% correctMatrix = [true ; true];
+% for i = 1:length(eruption)
+%     if( eruption(i,2) < 2.5 )
+%         if( eruption(i,1) < 55 || eruption(i,1) > 75 )
+%             correctMatrix(1) = false;
+%         end
+%     else
+%         if( eruption(i,1) < 81 || eruption(i,1) > 101 )
+%             correctMatrix(2) = false;
+%         end
+%     end
+% end
+% 
+% for i = 1:length(eruption)
+%     if( eruption(i,2) < 2.5 )
+%     else
+%     end
+% end
+
+data = eruption;
+
+indices1 = eruption(:,2) < 2.5;
+indices2 = ~indices1;
+
+X1 = data(indices1,i);
+X2 = data(indices2,i);
+
+[h1,p1,ci1,~] = ttest(X1,65);
+[h2,p2,ci2,~] = ttest(X2,91);
 
