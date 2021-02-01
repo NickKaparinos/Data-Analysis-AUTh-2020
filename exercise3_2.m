@@ -2,7 +2,9 @@
 % Chapter 3 Excerise 2
 % Exponential distrubution most likely mean
 % Nick Kaparinos
-clc;clear;
+close all;
+clc;
+clear;
 
 expMean = [1 5 10];
 n = [10 50 100];
@@ -28,7 +30,7 @@ for k = 1:3
             result(i,j,k) = mean(means);
             % Histogram
             figure(i*100 + j*10 + k)
-            hist(means);
+            histogram(means);
             title(getTitle(n(i), M(j), expMean(k)));
         end
     end

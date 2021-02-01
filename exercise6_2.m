@@ -12,7 +12,7 @@ data = importdata("yeast.dat")';
 n = size(data,1);
 data = normalize(data);
 
-covMatrix = cov(data);
+covMatrix = cov(data');
 [~,eigenValues] = eig(covMatrix);
 eigenValues = diag(eigenValues);
 eigenValues = eigenValues(end:-1:1);
@@ -25,15 +25,15 @@ ylabel("eigenvalues")
 
 td = 90;
 eigenValuesSum = sum(eigenValues);
-sum = 0;
+sumEigenValues = 0;
 i = 0;
-while(sum < td)
+while(sumEigenValues < td)
     i = i + 1;
-    sum = sum + 100*eigenValues(i)/eigenValuesSum;
+    sumEigenValues = sumEigenValues + 100*eigenValues(i)/eigenValuesSum;
 end
 
 % B
-[~,scores,~] = pca(data);
+[~,scores,~] = pca(data');
 % PCA 2D scores scatterplot
 figure(2)
 scatter(scores(:,1),scores(:,2))

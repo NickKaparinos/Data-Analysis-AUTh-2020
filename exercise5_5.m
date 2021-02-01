@@ -2,6 +2,7 @@
 % Chapter 5 Excerise 5
 % Linear regression coefficients bootstrap confidence interval
 % Nick Kaparinos
+close all;
 clc;
 clear;
 

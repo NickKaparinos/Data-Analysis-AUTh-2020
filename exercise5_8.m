@@ -38,6 +38,7 @@ b = [b0; b(model)];
 
 Ypred = [ones(length(X),1) X(:,model)]*b;
 errors = Y - Ypred;
-rmse(2) = sqrt( 1/(length(Y)-length(b))*sum(errors).^2 )
+rmse(2) = stats.rmse;
+
 R2(2) = 1 - stats.SSresid/stats.SStotal
 adjustedR2(2) = adjRsq(Ypred,Y,length(Y),length(b))

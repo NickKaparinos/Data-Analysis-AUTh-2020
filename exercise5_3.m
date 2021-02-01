@@ -1,6 +1,6 @@
 % Data Analysis 2020
 % Chapter 5 Excerise 3
-% Correlation hyoithesis testing
+% Correlation hypothesis testing
 % Nick Kaparinos
 clc;
 clear;
@@ -21,7 +21,6 @@ for i = 1:12
     end
     
     % Permutation
-    t = zeros(L);
     r = corrcoef(temp(:,i),rain(:,i));
     t0 = r(1,2)*sqrt( (n-2)/(1-r(1,2)^2) );
     t = zeros(L,1);

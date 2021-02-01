@@ -18,7 +18,7 @@ sigma = zeros(2,2,2);
 sigma(:,:,1) = [sx^2 0; 0 sy^2];
 sigma(:,:,2) = [sx^2 ro(2)*sx*sy; ro(2)*sx*sy sy^2];
 
-squareTransform = 1;
+squareTransform = false;
 
 % Generate starting samples and calculate t0
 t0 = zeros(2,1);
@@ -59,5 +59,4 @@ for j = 1:2
     if( t0(j) > CI(1,j) && t0(j) < CI(2,j) )
         t0InCI(j) = 1;
     end
-    
 end

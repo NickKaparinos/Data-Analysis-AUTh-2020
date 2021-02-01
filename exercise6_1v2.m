@@ -28,16 +28,21 @@ data3D = data*W';
 scatter3(data3D(:,1),data3D(:,2),data3D(:,3))
 title("3D Scatterplot")
 
-data3D = normalize(data3D);
+data3D = normalize(data3D,'center');
 covMatrix = cov(data3D);
 [eigenVectors,eigenValues] = eig(covMatrix);
 eigenValues = diag(eigenValues);
 eigenValues = sort(eigenValues,'descend');
 
 % PCA component scores
-eigenVectors = eigenVectors(end:-1:1,end:-1:1);
-scores = data3D*eigenVectors;
-figure(3)
+n = size(eigenVectors,2);
+eigenVectors = eigenVectors(:,n:-1:1);
+scores = data3D*eigenVectors(:,:);
+
+[U,S,V] = svd(data3D);
+
+
+figure;
 scatter3(scores(:,1),scores(:,2),scores(:,3))
 title("PCA Scores 3D Scatterplot")
 xlabel("PC1")
@@ -54,7 +59,7 @@ ylabel("eigenvalues")
 % C
 % PCA 2D scores scatterplot
 figure(5);
-scatter(scores(:,2),scores(:,1))
+scatter(scores(:,1),scores(:,2))
 title("PCA Scores 2D Scatterplot")
 xlabel("PC1")
 ylabel("PC2")

@@ -2,12 +2,14 @@
 % Chapter 5 Excerise 4
 % Linear regression
 % Nick Kaparinos
+close all;
 clc;
 clear;
 
 lightair = importdata("lightair.dat");
 X = lightair(:,1);
 Y = lightair(:,2);
+r = corrcoef(X,Y);
 
 % A
 % Scatter plot
@@ -21,9 +23,7 @@ ylabel("Speed of light")
 % B
 % Compute regression model
 regressionModel = fitlm(X,Y);
-
-b = table2array(regressionModel.Coefficients);
-b = b(:,1);
+b = regressionModel.Coefficients.Estimate;
 
 % Plot reggression
 % lsline
@@ -58,4 +58,5 @@ breal(1) = 299792.458;
 breal(2) = -299792.458*0.00029/1.29;
 regression = Xones*breal - 299000;
 plot(X,regression,'LineWidth',2,'LineStyle','-','Color','r')
+breal(1) = breal(1) - 299000;
 

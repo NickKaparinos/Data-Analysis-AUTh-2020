@@ -2,6 +2,7 @@
 % Chapter 4 Excerise 3
 % Error Propagation
 % Nick Kaparinos
+close all;
 clc;
 clear;
 
@@ -26,9 +27,9 @@ for i = 1:M
     sPower(i) = sqrt( I*cos(f)*sV + V*cos(f)*sI - V*I*sin(f)*sf );
 end
 
+% C
 powerC = zeros(M,1);
 sPowerC = zeros(M,1);
-% C
 for i = 1:M
     I = normrnd(mI,sI);
     sigma = [sV^2 0.5*sV*sf;0.5*sV*sf sf^2];

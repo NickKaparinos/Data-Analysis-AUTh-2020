@@ -2,6 +2,7 @@
 % Chapter 3 Excerise 3
 % Test probabily that exponential distrubution mean is inside confidence interval
 % Nick Kaparinos
+close all;
 clc;
 clear;
 
@@ -20,7 +21,7 @@ for i = 1:M
     end
     
     % Calculate confidence interval
-    [~,~,CI(:),~] = ttest(samples,0);
+    [h,~,CI(:),~] = ttest(samples,mu);
     
     % Check if mean is inside confidence interval and update counter
     if(mu>=CI(1) && mu<=CI(2))

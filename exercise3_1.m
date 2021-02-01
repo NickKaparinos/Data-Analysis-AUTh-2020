@@ -2,7 +2,9 @@
 % Chapter 3 Excerise 1
 % Poisson distribution most likely lambda
 % Nick Kaparinos
-clc;clear;
+close all;
+clc;
+clear;
 
 lambda = [1 5 10];
 n = [10 50 100];
@@ -28,7 +30,7 @@ for k = 1:3
             result(i,j,k) = mean(means);
             % Histogram
             figure(i*100 + j*10 + k)
-            hist(means);
+            histogram(means);
             title(getTitle(n(i), M(j), lambda(k)));
         end
     end

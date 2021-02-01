@@ -2,7 +2,9 @@
 % Chapter 2 Excerise 4
 % Compare E[1/X] with 1/E[X] for different distributions and number of samples
 % Nick Kaparinos
-clc;clear;
+clc;
+clear;
+close all;
 
 n = [10 100 1000 10000 10000 10000 100000];
 data = zeros(3,n(end));

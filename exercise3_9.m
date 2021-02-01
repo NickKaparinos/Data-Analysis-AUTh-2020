@@ -19,19 +19,23 @@ ts = tinv([0.025  0.975],n+m-2);
 lowerLim = (B+1)*a/2;
 upperLim = B+1-lowerLim;
 limits = [lowerLim upperLim]/B*100;
+limits = floor(limits);
 
 % A
 CIParametric = zeros(M,2);
 CIBootstrap = zeros(M,2);
 for i = 1:M
     % Parametric Confidence Interval
-    sp = sqrt( ( (n-1)*var(X(i,:)) + (m-1)*var(Y(i,:)) )/(n+m-2) );
-    CIParametric(i,:) = (mx(i)-my(i))+ts*sp*sqrt(1/n+1/m);
+    %sp = sqrt( ( (n-1)*var(X(i,:)) + (m-1)*var(Y(i,:)) )/(n+m-2) );
+    %CIParametric(i,:) = (mx(i)-my(i))+ts*sp*sqrt(1/n+1/m);
+    [h,p,CIParametric(i,:),~] = ttest2(X(i,:),Y(i,:));
+   
     
     % Bootstram Confidence Interval
     bootstrapMeanX = bootstrp(B,@mean,X(i,:));
     bootstrapMeanY = bootstrp(B,@mean,Y(i,:)); 
     difference = bootstrapMeanX - bootstrapMeanY;
-    CIBootstrap(i,:) = prctile(difference,limits);
+    difference = sort(difference);
+    CIBootstrap(i,:) = difference(limits);
 end
 

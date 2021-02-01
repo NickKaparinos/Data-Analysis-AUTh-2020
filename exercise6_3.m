@@ -21,6 +21,7 @@ covMatrix = cov(data);
 [eigenVectors,eigenValues] = eig(covMatrix);
 eigenValues = diag(eigenValues);
 eigenValues = eigenValues(end:-1:1);
+eigenVectors = eigenVectors(:,end:-1:1);
 
 % Scree plot
 figure(1)

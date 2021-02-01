@@ -2,6 +2,7 @@
 % Chapter 3 Excerise 7
 % Bootstrap mean confidence interval
 % Nick Kaparinos
+close all;
 clc;
 clear;
 
@@ -22,12 +23,16 @@ end
 
 % Histograms
 figure(1);
-hist([CIBoot(:,1) CIParam(:,1)], M);
+histogram(CIBoot(:,1), M);
+hold on;
+histogram(CIParam(:,1), M);
 legend('Bootstrap','Parametric');
 title('Confidence Interval lower bound');
 
 figure(2);
-hist([CIBoot(:,2) CIParam(:,2)], M);
+histogram(CIBoot(:,2), M);
+hold on;
+histogram(CIParam(:,2), M);
 legend('Bootstrap','Parametric');
 title('Confidence Interval upper bound');
 
@@ -43,11 +48,15 @@ end
 
 % Histograms
 figure(3);
-hist([CIBoot(:,1) CIParam(:,1)], M);
+histogram(CIBoot(:,1), M);
+hold on;
+histogram(CIParam(:,1), M);
 legend('Bootstrap','Parametric');
 title('Confidence Interval lower bound');
 
 figure(4);
-hist([CIBoot(:,2) CIParam(:,2)], M);
+histogram(CIBoot(:,2), M);
+hold on;
+histogram(CIParam(:,2), M);
 legend('Bootstrap','Parametric');
 title('Confidence Interval upper bound');

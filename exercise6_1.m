@@ -28,14 +28,15 @@ data3D = data*W';
 scatter3(data3D(:,1),data3D(:,2),data3D(:,3))
 title("3D Scatterplot")
 
-data3D = normalize(data3D);
+data3D = normalize(data3D,'center');
 covMatrix = cov(data3D);
 [~,eigenValues] = eig(covMatrix);
 eigenValues = diag(eigenValues);
 eigenValues = sort(eigenValues,'descend');
 
 % PCA component scores
-[~,scores,~] = pca(data3D);
+[loadings,scores,~] = pca(data3D);
+loadings2 = pcacov(data3D);
 figure(3)
 scatter3(scores(:,1),scores(:,2),scores(:,3))
 title("PCA Scores 3D Scatterplot")

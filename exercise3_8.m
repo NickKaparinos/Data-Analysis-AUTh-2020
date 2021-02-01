@@ -2,6 +2,7 @@
 % Chapter 3 Excerise 8
 % Bootstrap standard diviation confidence interval
 % Nick Kaparinos
+close all;
 clc;
 clear;
 
@@ -17,17 +18,22 @@ CIBoot = bootci(B,{@std,X'},'type','percentile')';
 
 % Parametric CI
 for i = 1:M
-    [~,~,CIParam(i,:),~] = sqrt(vartest(X(i,:),0));
+    [~,~,CIParam(i,:),~] = vartest(X(i,:),0);
 end
+CIParam = CIParam.^(1/2);
 
 % Histograms
 figure(1);
-hist([CIBoot(:,1) CIParam(:,1)], M);
+histogram(CIBoot(:,1), M);
+hold on;
+histogram(CIParam(:,1), M);
 legend('Bootstrap','Parametric');
 title('Confidence Interval lower bound');
 
 figure(2);
-hist([CIBoot(:,2) CIParam(:,2)], M);
+histogram(CIBoot(:,2), M);
+hold on;
+histogram(CIParam(:,2), M);
 legend('Bootstrap','Parametric');
 title('Confidence Interval upper bound');
 
@@ -38,16 +44,21 @@ CIBoot = bootci(B,{@std,Y'},'type','percentile')';
 
 % Parametric CI
 for i = 1:M
-    [~,~,CIParam(i,:),~] = sqrt(vartest(Y(i,:),0));
+    [~,~,CIParam(i,:),~] = vartest(Y(i,:),0);
 end
+CIParam = CIParam.^(1/2);
 
 % Histograms
 figure(3);
-hist([CIBoot(:,1) CIParam(:,1)], M);
+histogram(CIBoot(:,1), M);
+hold on;
+histogram(CIParam(:,1), M);
 legend('Bootstrap','Parametric');
 title('Confidence Interval lower bound');
 
 figure(4);
-hist([CIBoot(:,2) CIParam(:,2)], M);
+histogram(CIBoot(:,2), M);
+hold on;
+histogram(CIParam(:,2), M);
 legend('Bootstrap','Parametric');
 title('Confidence Interval upper bound');

@@ -4,6 +4,7 @@
 % Nick Kaparinos
 clc;
 clear;
+close all;
 
 % B
 e_real = 0.76;
@@ -30,7 +31,6 @@ figure(1);
 histogram(eMean);
 hold on
 plot([e_real e_real],ylim,'r')
-hold off
 
 % C
 h1 = [80 100 90 120 95];

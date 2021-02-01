@@ -2,6 +2,7 @@
 % Chapter 4 Excerise 2
 % Simple Error Propagation
 % Nick Kaparinos
+close all;
 clc;
 clear;
 

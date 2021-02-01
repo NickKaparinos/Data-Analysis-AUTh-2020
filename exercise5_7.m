@@ -20,7 +20,7 @@ xlabel("ln(R)");
 ylabel("1/T");
 
 % A
-k = 5;
+k = 4;
 R2 = zeros(k+1,1);
 AdjustedR2 = zeros(k+1,1);
 maxAdjR2 = zeros(2,1);
@@ -28,13 +28,13 @@ maxAdjR2 = zeros(2,1);
 % R2 and adjusted R2
 Rsq = @(ypred,y) 1-sum((ypred-y).^2)/sum((y-mean(y)).^2);
 adjRsq = @(ypred,y,n,k) ( 1 - (n-1)/(n-1-k)*sum((ypred-y).^2)/sum((y-mean(y)).^2) );
+rmse = @(residuals, n, dof) ( sqrt( 1/(n-dof) * sum(residuals.^2) ));
 
 
 for i = 1:k
     % Polynomial regression
     b = polyfit(X,Y,i);
     Ypred = polyval(b,X);
-    
     
     % Calculate R2 and find the max
     R2(i) = Rsq(Ypred,Y);
@@ -54,10 +54,10 @@ for i = 1:k
     ylabel("1/T");
     
     % Diagnostic plot
-    error = Y - Ypred;
-    se = sqrt( 1/(length(X)-k-1) * (sum(error.^2)));
+    residuals = Y - Ypred;
+    se = sqrt( 1/(length(X)-k-1) * (sum(residuals.^2)));
     figure(2*i+1)
-    scatter(Y,error./se);
+    scatter(Y,residuals./se);
     hold on;
     plot(Y,repmat(2,1,length(Y)));
     plot(Y,zeros(1,length(Y)));
@@ -69,9 +69,13 @@ for i = 1:k
 end
 
 % Steinhart-Hart
+k = 2;
 Xinput = [ones(length(X),1) X X.^3];
+fetModel = fitlm(Xinput,Y);
 b = regress(Y,Xinput);
 Ypred = Xinput*b;
+
+fetRmse = rmse(fetModel.Residuals.Raw, length(X),3);
 
 R2(i+1) = Rsq(Ypred,Y)
 AdjustedR2(i+1) = adjRsq(Ypred,Y,length(Y),3)
@@ -86,10 +90,11 @@ xlabel("ln(R)");
 ylabel("1/T");
 
 % Diagnostic plot
-error = Y - Ypred;
-se = sqrt( 1/(length(X)-k-1) * (sum(error.^2)));
+residuals = Y - Ypred;
+se = sqrt( 1/(length(X)-1) * (sum(residuals.^2)));
 figure(2*(i+1)+1)
-scatter(Y,error./se);
+fet2 = residuals./fetModel.RMSE;
+scatter(Y,residuals./se);
 hold on;
 plot(Y,repmat(2,1,length(Y)));
 plot(Y,zeros(1,length(Y)));

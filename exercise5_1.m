@@ -2,6 +2,7 @@
 % Chapter 5 Excerise 1
 % Correlation coefficient parametrical hypothesis test
 % Nick Kaparinos
+close all;
 clc;
 clear;
 
@@ -22,6 +23,8 @@ nullHypothesisTesting = zeros(2,1);
 
 squareTransform = 1;
 
+rMatrix = zeros(M,2);
+
 for i = 1:M
     samples = zeros(n,2,2);
     for j = 1:2
@@ -32,8 +35,10 @@ for i = 1:M
         end
         
         % Calculate CI
-        [~,p,RL,RU] = corrcoef(samples(:,:,j));
+        [r,p,RL,RU] = corrcoef(samples(:,:,j));
         CorrelationCi(i,:,j) = [RL(1,2),RU(1,2)];
+        rMatrix(i,j) = r(1,2);
+        
         
         % Check if real correlation coefficient is inside the CI
         if( ro(j) > CorrelationCi(i,1,j) && ro(j) < CorrelationCi(i,2,j) )
@@ -65,7 +70,13 @@ histogram(CorrelationCi(:,2,2))
 title("Sample 2: correlation coefficient upper bound")
 legend("Lower bound","Upper bound")
 
-disp("r in Confidence interval:");
+disp("ro in Confidence interval:");
 disp(roInCI);
 disp("Null hypothesis rejected");
 disp(nullHypothesisTesting);
+
+figure(3)
+histogram(rMatrix(:,1));
+
+figure(4)
+histogram(rMatrix(:,2));

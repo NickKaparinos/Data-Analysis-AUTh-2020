@@ -13,7 +13,7 @@ chirp = chirpSignal.y(1:10000);
 gong = gongSignal.y(1:10000);
 
 prewhitening = true;
-mixingDimension3 = false;
+mixingDimension3 = true;
 
 % A
 % Sources plots

@@ -41,6 +41,7 @@ b = [b0; b(model)];
 Ypred = [ones(length(X),1) X(:,model)]*b;
 errors = Y - Ypred;
 rmse(2) = sqrt( 1/(length(Y)-length(b))*sum(errors).^2);
+
 R2(2) = 1 - stats.SSresid/stats.SStotal;
 adjustedR2(2) = adjRsq(Ypred,Y,length(Y),length(b));
 
@@ -49,7 +50,7 @@ R2Matrix = zeros(size(X,2),1);
 
 % Multicollinearity
 for i = 1:size(X,2)
-    W = X;  % X
+    W = X;
     W(:,i) = [];
     Y = X(:,i);
     
@@ -61,5 +62,5 @@ for i = 1:size(X,2)
     R2Matrix(i) = Rsq(Ypred,Y);
 end
 
-
+disp(R2Matrix)
 
