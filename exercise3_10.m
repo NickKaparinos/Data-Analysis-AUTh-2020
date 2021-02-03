@@ -5,19 +5,17 @@
 clc;
 clear;
 
-M = 100;
+M = 10000;
 n = 10;
 m = 12;
-B = 100;
+B = 1000;
 a = 0.05;
 X = normrnd(0,1,[M n]);
 Y = normrnd(0,1,[M m]);
 
 lowerLim = (B+1)*a/2;
 upperLim = B+1-lowerLim;
-limits = [lowerLim upperLim]/B*100;
-limits(1) = ceil(limits(1));
-limits(2) = floor(limits(2));
+limits = [lowerLim upperLim];
 
 % A
 CIBootstrap = zeros(M,2);
@@ -38,9 +36,22 @@ for i = 1:M
     difference = [difference; stat];
     difference = sort(difference);
     
-    r = find(difference == stat);
-    if( r < limits(1) || r > limits(2) )
+    rankStat = find(difference == stat);
+    if( length(rankStat) > 1)
+        L = length(rankStat);
+        sample = randsample(L,1);
+        rankStat = rankStat(sample);
+    end
+    
+    if( rankStat < limits(1) || rankStat > limits(2) )
         result(i) = 1;
     end
+    
+    if rankStat > 0.5*(B+1)
+        pd = 2*(1-rankStat/(B+1));
+    else
+        pd = 2*rankStat/(B+1);
+    end
+    
 end
 disp(sum(result)/M)
