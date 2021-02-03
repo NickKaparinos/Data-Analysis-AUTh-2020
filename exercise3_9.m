@@ -8,7 +8,7 @@ clear;
 M = 100;
 n = 10;
 m = 12;
-B = 100;
+B = 1000;
 a = 0.05;
 X = normrnd(0,1,[M n]);
 Y = normrnd(0,1,[M m]);
@@ -18,7 +18,7 @@ my = mean(Y,2);
 ts = tinv([0.025  0.975],n+m-2);
 lowerLim = (B+1)*a/2;
 upperLim = B+1-lowerLim;
-limits = [lowerLim upperLim]/B*100;
+limits = [lowerLim upperLim];
 limits = floor(limits);
 
 % A
