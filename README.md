@@ -1,3 +1,6 @@
-# Data-Analysis-AUTh-2020
+## Aristotle University Thessaloniki
+## Data-Analysis
+## Nick Kaparinos
+## 2021
 
-Exercises for Data Analysis course Aristotle University Thessaloniki 2020-2021
+Exercises for Data Analysis course 2020-2021.
