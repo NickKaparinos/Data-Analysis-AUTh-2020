@@ -1,5 +1,5 @@
 ## Data-Analysis
-## Aristotle University Thessaloniki
+## Aristotle University Thessaloniki (AUTh)
 ## Nick Kaparinos
 ## 2020-2021
 
